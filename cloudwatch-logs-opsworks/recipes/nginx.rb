@@ -1,11 +1,3 @@
-=begin
-<% node[:opsworks][:applications]. each do |app| %>
-[nginx.<%= app[:name] %>.access.log]
-datetime_format = [%d/%b/%Y:%H:%M:%S %z]
-log_group_name = <%= node[:opsworks][:stack][:name].gsub(' ', '_') %>/nginx/<%= app[:name].gsub('-', '_') %>.access.log
-file = <%= node[:nginx][:log_dir] %>/<%= app[:name].gsub('-', '_') %>.access.log
-log_stream_name = <%= node[:opsworks][:instance][:hostname] %>
-=end
 
 if node['nginx']['log_dir']
 
@@ -26,7 +18,7 @@ if node['nginx']['log_dir']
     :file => "#{node['nginx']['log_dir']}/access.log",
     :datetime_format => '[%d/%b/%Y:%H:%M:%S %z]',
   }
-  
+
   # application.access.log
   node['opsworks']['applications'].each do |app|
     log_group_name = "#{node['cwlogs_ow']['base_name']}/nginx/#{app['name']}/access.log"
