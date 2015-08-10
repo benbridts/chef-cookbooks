@@ -1,1 +1,1 @@
-include_recipe 'cwlogs::default'
+include_recipe 'cloudwatch-logs::default'
